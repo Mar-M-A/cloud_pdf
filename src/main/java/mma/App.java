@@ -2,9 +2,9 @@ package mma;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // boolean isFinished =
-        // pdf_form_filler.loadPdfData("/Users/marmonteranduix/Documents/MASTER/ASSIGNATURES/CLOUD
-        // COMPUTING/PROJECTE/COMPRA-VENDA_PLENA.pdf");
+
+
+                
         boolean isFinished = pdf_form_filler.loadPdfData("src/assets/COMPRA-VENDA_PLENA.pdf");
 
         if (isFinished) {

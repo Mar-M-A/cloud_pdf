@@ -27,6 +27,8 @@ public class pdf_form_filler {
     public static final String INIT_CLAUS_TEXT = "ESTIPULACIONES";
     public static final String END_CLAUS_TEXT = "Y para que así conste";
 
+    //obtiene los datos del pdf y los guarda en sellerDict,buyerDict y clauses
+    //pasamos como parametro la uri del pdf que queramos leer
     public static boolean loadPdfData(String url) throws Exception {
         File file = new File(url);
         PDDocument doc = Loader.loadPDF(file);
@@ -61,6 +63,7 @@ public class pdf_form_filler {
         return true;
     }
 
+    //crea un JSON, se debe ejecutrar despues de loadPdfData
     public static void createJSONFile() {
         JsonWriter jsonWriter = null;
         try {

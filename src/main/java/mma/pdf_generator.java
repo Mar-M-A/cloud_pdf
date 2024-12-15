@@ -20,6 +20,7 @@ public class pdf_generator {
 
     public final static String PDF_PATH = "src/assets/DEMANDA JV - SIN POSTULACIÓN.pdf";
 
+    //transformamos el pdf en un String para poder modificarlo
     public static String loadTemplate() throws IOException{
         File file = new File(PDF_PATH);
         PDDocument doc = Loader.loadPDF(file);
@@ -28,7 +29,7 @@ public class pdf_generator {
         return  stripper.getText(doc);
     }
 
-    public static String removeSpecialCharacters(String test) {
+    private static String removeSpecialCharacters(String test) {
         StringBuilder b = new StringBuilder();
         for (int i = 0; i < test.length(); i++) {
             if (WinAnsiEncoding.INSTANCE.contains(test.charAt(i))) {
@@ -38,7 +39,9 @@ public class pdf_generator {
         return b.toString();
     }
 
-
+    //sustituye las variables del pdf que estan entre parentesis por sus respectivos valores que sacamos de los dicts
+    //param template --> el contenido del template pdf en formato String
+    //param placeholders --> los diccionarios con los valores sacados de las demandas (sellerDict, buyerDict)
     public static String fillTemplate(String template, Dictionary<String, String> placeholders) {
         for (Enumeration<String> keys = placeholders.keys(); keys.hasMoreElements(); ) {
             String key = keys.nextElement();
@@ -47,6 +50,9 @@ public class pdf_generator {
         return template;
     }
 
+    //una vez modificado el conbtenido del template, creamos un pdf
+    //param content --> template modicado en formato String
+    //param outputFilePath --> uri donde guardaremos el pdf nuevo
     public static void createPdf(String content, String outputFilePath) throws IOException {
         PDDocument document = new PDDocument();
 
@@ -71,7 +77,6 @@ public class pdf_generator {
             //contentStream.newLineAtOffset(100, y);
             contentStream.showText(removeSpecialCharacters(textList[i]));
             contentStream.newLineAtOffset(0, -15);
-
             
             y -= 15;
 
